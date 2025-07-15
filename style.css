@@ -1,111 +1,108 @@
-
-body, h1, h2, p {
+body {
     margin: 0;
     padding: 0;
-}
-
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #897f7fbf; 
-    color: #c14646;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-
-nav {
-    background-color: #6b8c29; 
-    padding: 10px 0;
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #1adcc5;
-}
-
-.nav-links {
-    list-style: none;
-}
-
-.nav-links li {
-    display: inline;
-    margin-right: 20px;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: #df2887;
-}
-
-
-.hero {
-    text-align: center;
-    padding: 100px 0;
-}
-
-.hero h1 {
-    font-size: 36px;
-    margin-bottom: 20px;
-}
-
-.hero p {
-    font-size: 18px;
-    margin-bottom: 30px;
-}
-
-.btn {
-    background-color: #ff0051;
-    color: #fff;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-}
-
-.btn:hover {
-    background-color: #ddff47; 
-}
-
-.restaurant-card {
-    background-color: #021416;
-    color: #ffffff;
-    text-align: center;
-    padding: 20px;
-    margin: 20px;
-    border-radius: 5px;
-    transition: transform 0.2s;
-}
-
-.restaurant-card:hover {
-    transform: scale(1.05); 
-}
-
-.restaurant-card img {
-    max-width: 100%;
-    border-radius: 5px;
-    transition: opacity 0.2s;
-}
-
-.restaurant-card:hover img {
-    opacity: 0.8; 
-}
-
-
-footer {
-    text-align: center;
-    padding: 10px 0;
-    background-color: #f612ae; 
-}
-
-footer a {
-    color: #FF4500;
-    text-decoration: none;
-}
-
-
+    font-family: sans-serif;
+    overflow-x: hidden;
+    /* Updated background image URL to display clouds */
+    background-image:url("https://media.gettyimages.com/photos/green-meadow-with-trees-and-asphalt-road-picture-id506364703?b=1&k=6&m=506364703&s=612x612&w=0&h=Pu7sZ4K1jesYRyaOaZkh4-p4ul_dFdw1JkLLNAReN3I=");
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 21%;
+    background-position: center;
+  }
+  #container {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+  }
+  /* Signal Pole Styles */
+  #signalPole {
+    width: 10px;
+    height: 500px;
+    background: #000000;
+    position: absolute;
+    top: 20px;
+    right: 85px;
+    border-radius: 10px;
+  }
+  /* Traffic Signal Styles */
+  #trafficLight {
+    width: 60px;
+    background: #181818;
+    padding: 10px;
+    border-radius: 10px;
+    position: absolute;
+    top: 40px;
+    right: 50px;
+  }
+  .light {
+    width: 40px;
+    height: 40px;
+    margin: 10px auto;
+    border-radius: 50%;
+    background: #979797;
+    opacity: 0.3;
+  }
+  .light.active {
+    opacity: 1;
+  }
+  .red.active { background: red; }
+  .yellow.active { background: yellow; }
+  .green.active { background: rgb(29, 220, 29); }
+  /* Road Styles */
+  #road {
+    width: 100%;
+    height: 150px;
+    background: #555;
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    overflow: hidden;
+  }
+  /* Dotted lines on road */
+  .lane-lines {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: repeating-linear-gradient(
+      to right,
+      white,
+      white 20px,
+      transparent 20px,
+      transparent 40px
+    );
+    transform: translateY(-50%);
+  }
+  /* Tree Styles */
+  .tree {
+    position: absolute;
+    width: 80px;
+    height: 181px;
+    object-fit: contain;
+  }
+  /* Positioning trees along the sides of the road */
+  .tree.left {
+    left: 20px;
+  }
+  .tree.right {
+    right: 20px;
+  }
+  /* Adjust vertical positions as needed */
+  .tree.pos1 { bottom: 158px; left:60%; }
+  .tree.pos2 { bottom: 158px; left:20%; }
+  .tree.pos3 { bottom: 158px;  }
+  .tree.pos4 { bottom: 158px; left:40%; }
+  .tree.pos5 { bottom: 158px; left:80%; }
+  .tree.pos6 { bottom: 158px; left:30%; }
+  .tree.pos7 { bottom: 158px; left:50%; }
+  .tree.pos8 { bottom: 158px; left:70%; }
+  .tree.pos9 {bottom : 158px; left: 10%}
+  /* Moving Car Styles */
+  #car {
+    position: absolute;
+    bottom: 140px;
+    width: 180px;
+    height: auto;
+  }

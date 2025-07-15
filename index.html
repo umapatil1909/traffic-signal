@@ -1,49 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>MEMORABLE</title>
+  <meta charset="UTF-8">
+  <title>Car Simulation with Traffic Light, Signal Pole, Trees & Moving Car</title>
+  <style>
+    /* General Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      overflow-x: hidden;
+      /* Updated background image URL to display clouds */
+      background-image:url("https://media.gettyimages.com/photos/green-meadow-with-trees-and-asphalt-road-picture-id506364703?b=1&k=6&m=506364703&s=612x612&w=0&h=Pu7sZ4K1jesYRyaOaZkh4-p4ul_dFdw1JkLLNAReN3I=");
+      background-repeat: no-repeat;
+      background-size: cover;
+      padding-bottom: 21%;
+      background-position: center;
+    }
+    #container {
+      width: 100%;
+      height: 100vh;
+      position: relative;
+    }
+    /* Signal Pole Styles */
+    #signalPole {
+      width: 10px;
+      height: 500px;
+      background: #000000;
+      position: absolute;
+      top: 20px;
+      right: 85px;
+      border-radius: 10px;
+    }
+    /* Traffic Signal Styles */
+    #trafficLight {
+      width: 60px;
+      background: #181818;
+      padding: 10px;
+      border-radius: 10px;
+      position: absolute;
+      top: 40px;
+      right: 50px;
+    }
+    .light {
+      width: 40px;
+      height: 40px;
+      margin: 10px auto;
+      border-radius: 50%;
+      background: #979797;
+      opacity: 0.3;
+    }
+    .light.active {
+      opacity: 1;
+    }
+    .red.active { background: red; }
+    .yellow.active { background: yellow; }
+    .green.active { background: rgb(29, 220, 29); }
+    /* Road Styles */
+    #road {
+      width: 100%;
+      height: 150px;
+      background: #555;
+      position: absolute;
+      bottom: 50px;
+      left: 0;
+      overflow: hidden;
+    }
+    /* Dotted lines on road */
+    .lane-lines {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: repeating-linear-gradient(
+        to right,
+        white,
+        white 20px,
+        transparent 20px,
+        transparent 40px
+      );
+      transform: translateY(-50%);
+    }
+    /* Tree Styles */
+    .tree {
+      position: absolute;
+      width: 80px;
+      height: 181px;
+      object-fit: contain;
+    }
+    /* Positioning trees along the sides of the road */
+    .tree.left {
+      left: 20px;
+    }
+    .tree.right {
+      right: 20px;
+    }
+    /* Adjust vertical positions as needed */
+    .tree.pos1 { bottom: 158px; left:60%; }
+    .tree.pos2 { bottom: 158px; left:20%; }
+    .tree.pos3 { bottom: 158px;  }
+    .tree.pos4 { bottom: 158px; left:40%; }
+    .tree.pos5 { bottom: 158px; left:80%; }
+    .tree.pos6 { bottom: 158px; left:30%; }
+    .tree.pos7 { bottom: 158px; left:50%; }
+    .tree.pos8 { bottom: 158px; left:70%; }
+    .tree.pos9 {bottom : 158px; left: 10%}
+    /* Moving Car Styles */
+    #car {
+      position: absolute;
+      bottom: 140px;
+      width: 180px;
+      height: auto;
+    }
+  </style>
 </head>
 <body>
-    <nav>
-        <div class="container">
-            <div class="logo">MEMORABLE</div>
-            <ul class="nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Restaurants</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-    <header class="hero">
-        <div class="container">
-            <h1>Discover the Best Restaurants Near You</h1>
-            <p>Order your favorite food online and enjoy fast delivery.</p>
-            <button class="btn">Order Now</button>
-        </div>
-    </header>
-    <section class="featured-restaurants">
-        <div class="container">
-            <h2>Featured Restaurants</h2>
-            <div class="restaurant-card">
-                <img src="restaurant1.jpg" alt="Restaurant 1">
-                <h3>Restaurant Name 1</h3>
-                <p>Cuisine Type: Indian</p>
-            </div>
-            <div class="restaurant-card">
-                <img src="restaurant2.jpg" alt="Restaurant 2">
-                <h3>Restaurant Name 2</h3>
-                <p>Cuisine Type: panjabi</p>
-            </div>
-        </div>
-    </section>
-    <footer>
-        <div class="container">
-            &copy; 2024 Food Delivery
-        </div>
-    </footer>
+  <div id="container">
+    <!-- Signal Pole -->
+    <div id="signalPole"></div>
+    <!-- Traffic Signal -->
+    <div id="trafficLight">
+      <div class="light red" id="redLight"></div>
+      <div class="light yellow" id="yellowLight"></div>
+      <div class="light green" id="greenLight"></div>
+    </div>
+    <!-- Trees on the left side -->
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI4MCI+CiAgPHJlY3QgeD0iMjAiIHk9IjUwIiB3aWR0aD0iMTAiIGhlaWdodD0iMjAiIGZpbGw9InNhZGRsZWJyb3duIi8+CiAgPGNpcmNsZSBjeD0iMjUiIGN5PSIzMCIgcj0iMjAiIGZpbGw9ImdyZWVuIi8+Cjwvc3ZnPg==" alt="Tree" class="tree left pos1">
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI4MCI+CiAgPHJlY3QgeD0iMjAiIHk9IjUwIiB3aWR0aD0iMTAiIGhlaWdodD0iMjAiIGZpbGw9InNhZGRsZWJyb3duIi8+CiAgPGNpcmNsZSBjeD0iMjUiIGN5PSIzMCIgcj0iMjAiIGZpbGw9ImdyZWVuIi8+Cjwvc3ZnPg==" alt="Tree" class="tree left pos2">
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI4MCI+CiAgPHJlY3QgeD0iMjAiIHk9IjUwIiB3aWR0aD0iMTAiIGhlaWdodD0iMjAiIGZpbGw9InNhZGRsZWJyb3duIi8+CiAgPGNpcmNsZSBjeD0iMjUiIGN5PSIzMCIgcj0iMjAiIGZpbGw9ImdyZWVuIi8+Cjwvc3ZnPg==" alt="Tree" class="tree left pos3">
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI4MCI+CiAgPHJlY3QgeD0iMjAiIHk9IjUwIiB3aWR0aD0iMTAiIGhlaWdodD0iMjAiIGZpbGw9InNhZGRsZWJyb3duIi8+CiAgPGNpcmNsZSBjeD0iMjUiIGN5PSIzMCIgcj0iMjAiIGZpbGw9ImdyZWVuIi8+Cjwvc3ZnPg==" alt="Tree" class="tree left pos4">
+    <!-- Trees on the right side -->
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI4MCI+CiAgPHJlY3QgeD0iMjAiIHk9IjUwIiB3aWR0aD0iMTAiIGhlaWdodD0iMjAiIGZpbGw9InNhZGRsZWJyb3duIi8+CiAgPGNpcmNsZSBjeD0iMjUiIGN5PSIzMCIgcj0iMjAiIGZpbGw9ImdyZWVuIi8+Cjwvc3ZnPg==" alt="Tree" class="tree right pos5">
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI4MCI+CiAgPHJlY3QgeD0iMjAiIHk9IjUwIiB3aWR0aD0iMTAiIGhlaWdodD0iMjAiIGZpbGw9InNhZGRsZWJyb3duIi8+CiAgPGNpcmNsZSBjeD0iMjUiIGN5PSIzMCIgcj0iMjAiIGZpbGw9ImdyZWVuIi8+Cjwvc3ZnPg==" alt="Tree" class="tree right pos6">
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI4MCI+CiAgPHJlY3QgeD0iMjAiIHk9IjUwIiB3aWR0aD0iMTAiIGhlaWdodD0iMjAiIGZpbGw9InNhZGRsZWJyb3duIi8+CiAgPGNpcmNsZSBjeD0iMjUiIGN5PSIzMCIgcj0iMjAiIGZpbGw9ImdyZWVuIi8+Cjwvc3ZnPg==" alt="Tree" class="tree right pos7">
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI4MCI+CiAgPHJlY3QgeD0iMjAiIHk9IjUwIiB3aWR0aD0iMTAiIGhlaWdodD0iMjAiIGZpbGw9InNhZGRsZWJyb3duIi8+CiAgPGNpcmNsZSBjeD0iMjUiIGN5PSIzMCIgcj0iMjAiIGZpbGw9ImdyZWVuIi8+Cjwvc3ZnPg==" alt="Tree" class="tree right pos8">
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI4MCI+CiAgPHJlY3QgeD0iMjAiIHk9IjUwIiB3aWR0aD0iMTAiIGhlaWdodD0iMjAiIGZpbGw9InNhZGRsZWJyb3duIi8+CiAgPGNpcmNsZSBjeD0iMjUiIGN5PSIzMCIgcj0iMjAiIGZpbGw9ImdyZWVuIi8+Cjwvc3ZnPg==" alt="Tree" class="tree left pos9">
+    <!-- Road -->
+    <div id="road">
+      <div class="lane-lines"></div>
+    </div>
+    <!-- Moving Car using GIF -->
+    <img id="car" src="https://static.vecteezy.com/system/resources/previews/041/715/518/original/ai-generated-suv-car-side-view-on-transparent-background-png.png" alt="Moving Car">
+  </div>
+  <script>
+    let currentLight = "red";
+    const car = document.getElementById("car");
+    let carPosition = 0;
+    let speed = 0;
+    function updateTrafficLight() {
+      document.getElementById("redLight").classList.remove("active");
+      document.getElementById("yellowLight").classList.remove("active");
+      document.getElementById("greenLight").classList.remove("active");
+      if (currentLight === "red") {
+        document.getElementById("redLight").classList.add("active");
+      } else if (currentLight === "yellow") {
+        document.getElementById("yellowLight").classList.add("active");
+      } else if (currentLight === "green") {
+        document.getElementById("greenLight").classList.add("active");
+      }
+    }
+    function changeLight() {
+      if (currentLight === "red") {
+        currentLight = "green";
+        speed = 4;
+        setTimeout(changeLight, 3000);
+      } else if (currentLight === "green") {
+        currentLight = "yellow";
+        speed = 1;
+        setTimeout(changeLight, 1000);
+      } else if (currentLight === "yellow") {
+        currentLight = "red";
+        speed = 0;
+        setTimeout(changeLight, 3000);
+      }
+      updateTrafficLight();
+    }
+    setInterval(() => {
+      carPosition += speed;
+      car.style.left = carPosition + "px";
+      // Reset position once the car moves off-screen
+      if (carPosition > window.innerWidth) {
+        carPosition = -car.offsetWidth;
+      }
+    }, 20);
+    updateTrafficLight();
+    setTimeout(changeLight, 3000);
+  </script>
 </body>
-</html>
